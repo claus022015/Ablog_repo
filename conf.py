@@ -13,22 +13,26 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
+import alabaster
+import ablog
 import sys
 import os
-import ablog
-import alabaster
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
-if os.environ.get('READTHEDOCS', None) == 'True':
+if not on_rtd:  # only import and set the theme if we're building docs locally
+    import sphinx_rtd_theme
+    html_theme = 'sphinx_rtd_theme'
+    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
-    skip_pickling = True
+# If the directory is relative to the documentation root, use os.path.abspath to make it absolute, like shown here.
+# directory relative to this conf file
+CURDIR = os.path.abspath(os.path.dirname(__file__))
 
-# If extensions (or modules to document with autodoc) are in another directory,
-# add these directories to sys.path here. If the directory is relative to the
-# documentation root, use os.path.abspath to make it absolute, like shown here.
-#sys.path.insert(0, os.path.abspath('.'))
+# If extensions (or modules to document with auto-doc) are in another directory, add these directories to sys.path here.
+# add custom extensions directory to python path
+#sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), '_extensions'))
 
-# -- General configuration ------------------------------------------------
-
+# -- General configuration ---------------------------------------------------------------------------------------------
 # If your documentation needs a minimal Sphinx version, state it here.
 #needs_sphinx = '1.0'
 
